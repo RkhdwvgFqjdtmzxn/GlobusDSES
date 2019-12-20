@@ -1,0 +1,21 @@
+TechProcess -> StartOperation -> OperationPaths (foreach) -> Operations (foreach) -> OperationPaths... -> Operations -> Null Paths.
+
+Operations may be: creating from 0, extensing by new paths and child operations (through paths), existing in KB.
+
+If operation exists, it quering by name. If not, than operation creating. Constructor of operations call with param of paths with child operations. Chain of creating operations should be created from end, with relating to parent operations. If existing operation has more or less deep structure of child paths and operations, in new techprocess this structure may be extended. The extended point should be pre-defined.
+
+Tree structure.
+
+Main type: Any where string - name of operation if exists. For start operation only 1 val of this type for constructing. Further, ArrayBuffer[Map???(for levels numbers. Levels may load full from KB) ArrayBuffer[Map[int, ArrayBuffer[Any]]]] where ArrayBuffer1: array of operation levels, ArrayBuffer2: array of maps in every level, maps are maps of pair op-path number-child operations array for each parent operation path (operation). 
+
+                                        TechProcessFactory working
+1) Check startOperation: 
+1a) If startOperation exists in KB: it load with all childs. Than, main array is analyze. If in any level, any inner map-array, value is not null, but string or constructContext, than: if string, than in this level (level number is check. It should has correct value, confirming with levels number in start operation. If incorrect, than exception) creating new operation path confirming to this-string-defined operation. This path must include operations from old path + new operation. New path must always creating in this case. It look as new branch in tree. How define paths for constructing techProcess? Through array of pathNumbers. If constructContext, than operation construct, further likewise case with string: new path creating. Further, on both cases build childs with checking with main array, but in case of constructContext by other rules.
+1b) If startOperation must create by constructContext. Analyze main array. If any level contains only nulls and this level is not last, than exception. If such level is last, than analyze other levels. It's need to define segments of paths where chains of operations may be creating by constructContexts or in last level may be strings (operations from KB). On these segments, operations construct from end (from max level). 
+New branch add only in case of operations tree (subtree), loaded from KB. In case of constructing, tree is create from end.
+
+Shortly, startOperation check, call one of two creators: loading from KB or creating from constructContext. Main array analyze fron 0 to end. Construct context from end to start. Creators returns operation trees, these trees analyze by main array. Find not-confirm values, call creators, return, find, call creators, ... by end (main array or loaded operations tree)
+
+Not load all operation trees from KB! Load only start id. Levels operation ids load from KB if need (by main array). Creating operations save to KB at once and return id for op-path edge creating! For existing ops load only ids and create edges to new op-path. Further, go down in main array, show next values, create or get operations. Without full operation loading. It's need to edit or create ops-tree in KB and relate startop-vertex to TechProcess vertex. But not load full operations tree to local operation memory.
+
+How save in graph what path for what techProcess? In app as array, in KB as string, parse.

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="concurrentlinkedhashmap-lru-1.4.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../libs/system/java/concurrentlinkedhashmap-lru-1.4.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

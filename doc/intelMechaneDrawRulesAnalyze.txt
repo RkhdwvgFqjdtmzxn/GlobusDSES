@@ -1,0 +1,14 @@
+Model of subgraph for intel mech (pre-model):
+ Task (Operation). Types of tasks: structure changing task (create new vertexes or edges or delete them or change edges bindings to vertex), inner vertexes/edges structure changing task (change props of vertexes, direction or name of edges), logical task (is may to relate vertexes, to create/delete vertex, to create/delete edge?), mix of 2 kinds of structure changing and logical (structure change after true logical answer). Central vertex of task relate with term (?) vertexes through specially named edges, where names of edges talk about goals of task applying to participating terms.
+ Solving mechanisme of task also in subgraph. Task defining subgraph (from pre-subparagraph) should be related with solve mech subgraph. How? Central task-defining vertex to term vertex, from term vertex to central task-solving vertex. Edges has valued for this task names. Worked name of this model of relating task define and solve subgraphs is pendulum model (term vertex as pendulum under subgraphs, related by edges as fibres). May be simple (with 1 term) or complex (with many terms). Construction of solving subgraph: many aspect vertexes related with many part-of-aspect vertexes. Central vertex to all aspect vertexes. Part-vertexes relate to aspect vertexes by edges named as needing term + needing prop of term. From aspect to central vertex also edges named as term + prop. Globus system code analyse these edges and ask term kind vertex prop value. This value analyse with help of part-aspect vertex props: part-aspect should be child of spec vertex (-es) with props boundaryValue: Int (_2, _3, ..? Is need? May be 2: start and final (number interval)), correctValue: String. Idea: if many correct values, that separate correct value by |. Globus parser work and define correct values. Aspect vertexes has complex prop-enum with verdicts, influenced to result and percent number of positive influence. Task's term kinds relate with intel mech subgraph to central solving vertex. This structure will be much complex. For structure changing (without logic part) task solving subgraph may return any parameter for search in term kind instances exemplar for new relating or parameters for creating new vertex. Special parent classes for central solving vertex should be create. 
+Intel mech for complex goals.   
+
+1) this drawing.rules.Count > 0 ?
+if yes, than in step of 
+
+Error:scalac: Error: org.jetbrains.jps.incremental.scala.remote.ServerException
+
+30.10.2019
+1) Reorganize structure of Operation classes: simplify with creating vertex and edge kind type enums. SubTermKind exists! 
+2) In Globus create Operation factories. => simple code: new Operation with params
+3) In Saturn create DrawingTechProcessCreator with next blocks: create Operations with Factories, add Operations to KB with relating to Vertex/Edge type.

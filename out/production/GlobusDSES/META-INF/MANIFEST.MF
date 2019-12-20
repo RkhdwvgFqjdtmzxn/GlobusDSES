@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Class-Path: hamcrest-core-1.3.jar scala-library-2.12.6.jar scalajs-test-
+ interface_2.12-0.6.24.jar orientdb-core-3.0.8.jar apache-commons.jar pe
+ titparser-core-2.0.3.jar scala-library-2.12.6.jar scala-reflect.jar ori
+ entdb-graphdb-3.0.8.jar argparse4j-0.8.1.jar blueprints-core-2.6.0.jar 
+ scalactic_2.12-3.0.5.jar concurrentlinkedhashmap-lru-1.4.2.jar commons-
+ cli-1.4.jar config-1.3.3.jar commons-configuration-1.10.jar java-util-1
+ .3.1.jar
+
