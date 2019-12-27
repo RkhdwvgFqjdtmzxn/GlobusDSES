@@ -1,9 +1,9 @@
 package globus.commands.infrastructure.graph
 
 import com.orientechnologies.orient.core.id.ORID
-import com.tinkerpop.blueprints.impls.orient.OrientVertex
+import commands.infrastructure.graph.internal.workers.VertexOuterOperationWorker
 import globus.commands.infrastructure.graph.internal.ChangeVertexContext
-import globus.domain.{VertexOperationType, VertexOuterChangeLogicalOperation}
+import globus.domain.VertexOuterChangeLogicalOperation
 import globus.domain.VertexOuterChangeOperationType.VertexOuterChangeOperationType
 import globus.infrastructure.graph.GraphError
 import globus.infrastructure.langApi.rop._
@@ -11,6 +11,7 @@ import globus.queries.infrastructure.graph.{TermIdByNmeQuery, VertexOperationTyp
 
 class VertexOuterLogicalOperationCommand(val operationType: VertexOuterChangeOperationType)
   extends GraphTypeCommand[VertexOuterChangeLogicalOperation] {
+  val worker = new VertexOuterOperationWorker(graph, operationType)
 
   val termIdByNmeQuery = new TermIdByNmeQuery
 
@@ -20,27 +21,18 @@ class VertexOuterLogicalOperationCommand(val operationType: VertexOuterChangeOpe
 
   def addVertex(operation: VertexOuterChangeLogicalOperation): R[ORID, GraphError] = {
     try {
-      val operationVertex: OrientVertex = graph addVertex(
-        "class: Operation",
-        "name", operation.name
-      )
-      val termId = termIdByNmeQuery get operation.vertexTerm.name match {
+      val operationVertex = worker.addVertex(operation) match {
         case Succ(data) => data
-        case Fail(msg) => return fail(new GraphError(""))
+        case Fail(msg) => return fail(msg)
       }
-      if (termId.isEmpty)
-        return fail(new GraphError("There is trying of operation adding to KB, but related term (" + operation.vertexTerm.name + ") isn't exists in KB"))
-      val termVertex = graph getVertex termId
-      operationVertex addEdge(operationType + "_" + operation.vertexTerm.name, termVertex)
-      val vertexOperationTypeId = vertexOperationTypeIdQuery get VertexOperationType.outer
-      val vertexOperationTypeVertex = graph getVertex vertexOperationTypeId
-      vertexOperationTypeVertex addEdge("HasOperation", operationVertex)
-      val vertexOuterChangeOperationTypeId = vertexOuterChangeOperationTypeIdQuery get operationType
-      val vertexOuterChangeOperationTypeVertex = graph getVertex vertexOuterChangeOperationTypeId
-      vertexOuterChangeOperationTypeVertex addEdge("HasOperation", operationVertex)
-      operation.relatedTerms
+      for (term <- operation.relatedTerms.get){
+        val termId = termIdByNmeQuery get term.name
+        val termVertex = graph getVertex termId
+        operationVertex addEdge("Relate with", termVertex)
+      }
+      succeed(operationVertex getIdentity)
     } catch {
-
+      case e: Exception => fail(new GraphError("Inner graph error during adding new operation."))
     }
   }
 

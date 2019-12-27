@@ -1,5 +1,5 @@
 package globus.domain
 
-class VertexOuterChangeOperation(override val name: String, val vertexTerm: Term) extends Operation(name) {
+class VertexOuterChangeOperation(override val name: String, override val vertexTerm: Term) extends VertexOuterOperationBase(name, vertexTerm) {
 
 }
