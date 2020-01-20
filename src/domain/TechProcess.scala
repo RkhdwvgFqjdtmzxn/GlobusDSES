@@ -2,6 +2,6 @@ package globus.domain
 
 import scala.collection.mutable.ArrayBuffer
 
-class TechProcess (val name: String, val pathNumbers: Option[ArrayBuffer[Int]]) {
+class TechProcess (val name: String, val startOperation: Operation, val operations: ArrayBuffer[ArrayBuffer[Operation]]) {
 
 }

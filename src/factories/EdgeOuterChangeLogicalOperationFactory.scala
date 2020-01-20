@@ -1,6 +1,6 @@
 package globus.factories
 
-import globus.domain.{EdgeOuterChangeLogicalOperation, OperationPath, Term}
+import globus.domain.{EdgeOuterChangeLogicalOperation, Term}
 import globus.infrastructure.langApi.rop._
 
 import scala.collection.mutable.ArrayBuffer

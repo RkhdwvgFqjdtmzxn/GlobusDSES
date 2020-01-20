@@ -1,6 +1,6 @@
 package globus.factories
 
-import globus.domain.{OperationPath, Term, VertexInnerChangeLogicalOperation}
+import globus.domain.{Term, VertexInnerChangeLogicalOperation}
 import globus.infrastructure.langApi.rop._
 
 import scala.collection.mutable.ArrayBuffer
