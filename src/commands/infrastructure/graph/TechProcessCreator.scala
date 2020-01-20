@@ -8,8 +8,7 @@ import globus.infrastructure.langApi.rop._
 import scala.collection.mutable.ArrayBuffer
 
 class TechProcessCreator(techProcess: TechProcess, startOperationContext: Any,
-                         operationContexts: Option[ArrayBuffer[Map[Int, ArrayBuffer[Map[Int, ArrayBuffer[Any]]]]]],
-                         pathNumbers: Option[ArrayBuffer[Int]]) extends SubGraphCreator {
+                         operationContexts: Option[ArrayBuffer[Map[Int, ArrayBuffer[Map[Int, ArrayBuffer[Any]]]]]]) extends SubGraphCreator {
   def work(termId: ORID): R[ArrayBuffer[ORID], GraphError] = {
     try {
     val techProcessCommand = new TechProcessCommand(termId)
