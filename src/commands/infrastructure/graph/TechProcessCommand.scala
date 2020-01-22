@@ -7,7 +7,7 @@ import globus.domain.TechProcess
 import globus.infrastructure.graph.GraphError
 import globus.infrastructure.langApi.rop._
 
-class TechProcessCommand (val termId: ORID) extends GraphTypeCommand[TechProcess] {
+class TechProcessCommand (val termId: ORID, val startOpId: ORID) extends GraphTypeCommand[TechProcess] {
   def addVertex(techProcess: TechProcess): R[ORID, GraphError] = {
     try {
       val techProcessVertex: OrientVertex = graph addVertex(
