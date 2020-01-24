@@ -7,6 +7,4 @@ object NumberOperationType extends Enumeration {
   var assign, plus, multiply, divide = Value
 
   var vertexInnerChangeOperations: Option[ArrayBuffer[VertexInnerChangeOperation]] = _
-
-  var vertexInnerChangeLogicalOperations: Option[ArrayBuffer[VertexInnerChangeLogicalOperation]] = _
 }

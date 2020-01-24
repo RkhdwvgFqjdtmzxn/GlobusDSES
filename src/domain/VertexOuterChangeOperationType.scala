@@ -7,6 +7,4 @@ object VertexOuterChangeOperationType extends Enumeration {
   val adding, deleting = Value
 
   var vertexOperations: Option[ArrayBuffer[VertexOuterChangeOperation]] = _
-
-  var vertexLogicalOperations: Option[ArrayBuffer[VertexOuterChangeLogicalOperation]] = _
 }

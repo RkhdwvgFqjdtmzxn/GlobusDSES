@@ -7,6 +7,4 @@ object EdgeKindType extends Enumeration {
   val termToTerm, KindToKind, subKindToSubKind, termToKind, termToSubKind, kindToSubKind = Value
 
   var operations: Option[ArrayBuffer[EdgeOuterChangeOperation]] = _
-
-  var logicalOperations: Option[ArrayBuffer[EdgeOuterChangeLogicalOperation]] = _
 }

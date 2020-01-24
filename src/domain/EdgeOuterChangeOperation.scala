@@ -1,5 +1,7 @@
 package globus.domain
+import com.orientechnologies.orient.core.id.ORID
 
-class EdgeOuterChangeOperation(override val name: String, override val fromVertexTerm: Term, override val toVertexTerm: Term)
-    extends EdgeOperationBase(name, fromVertexTerm, toVertexTerm)  {
+class EdgeOuterChangeOperation(override val name: String, val fromVertexTerm: Term, val toVertexTerm: Term)
+    extends Operation(name)  {
+  var id: ORID = _
 }

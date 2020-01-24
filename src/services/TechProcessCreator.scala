@@ -1,21 +1,26 @@
 package globus.services
 import com.orientechnologies.orient.core.id.ORID
-import util.control.Breaks._
 import globus.app.AppError
-import globus.domain.TechProcess
+import globus.commands.infrastructure.graph.TechProcessCommand
+import globus.domain.{TechProcess, Term}
 import globus.factories.constructContexts.OperationConstructContext
 import globus.infrastructure.langApi.rop._
-import globus.queries.infrastructure.graph.GraphContextQueryable
+import globus.queries.infrastructure.graph.{GraphContextQueryable, TermIdByNmeQuery}
 import queries.infrastructure.graph.OperationIdByNmeQuery
 
 import scala.collection.mutable.ArrayBuffer
+import scala.util.control.Breaks._
 
 class TechProcessCreator extends TechProcessCreatable {
   private var errMessage: String = _
 
-  private var operationIdByNmeQuery: GraphContextQueryable[String, ORID] = new OperationIdByNmeQuery
+  private val operationIdByNmeQuery: GraphContextQueryable[String, ORID] = new OperationIdByNmeQuery
 
-  def create(name: String, termName: String, startOpName: String, opNames: Option[ArrayBuffer[ArrayBuffer[String]]]): R[TechProcess, AppError] = {
+  private val termIdByNmeQuery: GraphContextQueryable[String, ORID] = new TermIdByNmeQuery
+
+  def create(name: String, term: Term, applyingTerm: Term, startOpName: String, opNames: Option[ArrayBuffer[ArrayBuffer[String]]],
+             opValueNums: Option[Map[(Int, Int), (Int, Int)]] = None)
+      : R[TechProcess, AppError] = {
     val startOpId: ORID = getStartOpId(startOpName)
     val opIds: Option[ArrayBuffer[ArrayBuffer[ORID]]] = getOpIds(opNames)
     var hasNullOpIds = false
@@ -29,10 +34,24 @@ class TechProcessCreator extends TechProcessCreatable {
     }
     if (startOpId == null || opIds.isEmpty || hasNullOpIds) {
       errMessage += "\r\n There are cases of null or empty conditions, not existing in KB operations or app errors"
+      fail(new ServiceError("In creating techProcess " + name + ": " + errMessage))
     } else {
-      //to do: create process with relating with ops. through factory and command
+      val termId = termIdByNmeQuery get term.name match {
+        case Succ(data) => data
+        case Fail(msg) => return fail(msg)
+      }
+      val applyingTermId = termIdByNmeQuery get applyingTerm.name match {
+        case Succ(data) => data
+        case Fail(msg) => return fail(msg)
+      }
       val techProcess = new TechProcess(name)
-
+      val command = new TechProcessCommand(termId, applyingTermId, startOpId, opIds.get, opValueNums)
+      val techProcessId = command.addVertex(techProcess) match {
+        case Succ(data) => data
+        case Fail(msg) => return fail(msg)
+      }
+      techProcess.id = techProcessId
+      succeed(techProcess)
     }
   }
 
@@ -85,11 +104,13 @@ class TechProcessCreator extends TechProcessCreatable {
              opConstructContexts: Option[ArrayBuffer[Map[Int, ArrayBuffer[Map[Int, OperationConstructContext]]]]]):
     R[TechProcess, AppError] = ???
 
-  def create(name: String, startOpConstructContext: OperationConstructContext, opNames: Option[ArrayBuffer[ArrayBuffer[String]]]):
+  def create(name: String,
+             startOpConstructContext: OperationConstructContext, opNames: Option[ArrayBuffer[ArrayBuffer[String]]]):
     R[TechProcess, AppError] = ???
 
-  def create(name: String, startOpConstructContext: OperationConstructContext,
-             opConstructContexts: Option[ArrayBuffer[ArrayBuffer[OperationConstructContext]]]):
+  def create(name: String, term: Term, applyingTerm: Term, startOpConstructContext: OperationConstructContext,
+             opConstructContexts: Option[ArrayBuffer[ArrayBuffer[OperationConstructContext]]],
+               opValueNums: Option[Map[(Int, Int), (Int, Int)]] = None):
     R[TechProcess, AppError] = ???
 
   def create(startOpConstructContext: OperationConstructContext, opNames: Option[ArrayBuffer[Map[Int, ArrayBuffer[Map[Int, String]]]]],

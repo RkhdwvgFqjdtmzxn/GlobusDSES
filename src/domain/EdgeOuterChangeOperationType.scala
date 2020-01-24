@@ -7,6 +7,4 @@ object EdgeOuterChangeOperationType extends Enumeration {
   val adding, deleting = Value
 
   var operations: Option[ArrayBuffer[EdgeOuterChangeOperation]] = _
-
-  var interTermsLogicalOperations: Option[ArrayBuffer[EdgeOuterChangeLogicalOperation]] = _
 }

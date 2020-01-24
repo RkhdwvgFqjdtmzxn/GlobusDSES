@@ -3,7 +3,7 @@ package commands.infrastructure.graph.internal.workers
 import com.orientechnologies.orient.core.id.ORID
 import com.tinkerpop.blueprints.impls.orient.{OrientGraph, OrientVertex}
 import globus.domain.VertexOuterChangeOperationType.VertexOuterChangeOperationType
-import globus.domain.{VertexOperationType, VertexOuterChangeOperation, VertexOuterOperationBase}
+import globus.domain.{VertexOperationType, VertexOuterChangeOperation}
 import globus.infrastructure.graph.GraphError
 import globus.infrastructure.langApi.rop.{Fail, R, Succ, fail, succeed}
 import globus.queries.infrastructure.graph.{TermIdByNmeQuery, VertexOperationTypeIdQuery, VertexOuterChangeOperationTypeIdQuery}
@@ -15,7 +15,7 @@ class VertexOuterOperationWorker(val graph: OrientGraph, val operationType: Vert
 
   val vertexOuterChangeOperationTypeIdQuery = new VertexOuterChangeOperationTypeIdQuery
 
-  def addVertex(operation: VertexOuterOperationBase): R[OrientVertex, GraphError] = {
+  def addVertex(operation: VertexOuterChangeOperation): R[OrientVertex, GraphError] = {
     try {
       val operationVertex: OrientVertex = graph addVertex(
         "class: Operation",

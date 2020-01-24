@@ -4,6 +4,6 @@ import globus.domain.Term
 
 import scala.collection.mutable.ArrayBuffer
 
-class LogicalOperationConstructContext(override val name: String, val terms: ArrayBuffer[Term]) extends OperationConstructContext(name){
-
+class LogicalOperationConstructContext(override val name: String, val relatedTerm: Term) extends OperationConstructContext(name){
+  var edgedTerm: Term = _
 }
