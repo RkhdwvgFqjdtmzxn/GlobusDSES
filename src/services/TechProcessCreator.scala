@@ -4,6 +4,7 @@ import globus.app.AppError
 import globus.commands.infrastructure.graph.TechProcessCommand
 import globus.domain.{TechProcess, Term}
 import globus.factories.constructContexts.OperationConstructContext
+import globus.infrastructure.graph.GraphError
 import globus.infrastructure.langApi.rop._
 import globus.queries.infrastructure.graph.{GraphContextQueryable, TermIdByNmeQuery}
 import queries.infrastructure.graph.OperationIdByNmeQuery
@@ -111,7 +112,13 @@ class TechProcessCreator extends TechProcessCreatable {
   def create(name: String, term: Term, applyingTerm: Term, startOpConstructContext: OperationConstructContext,
              opConstructContexts: Option[ArrayBuffer[ArrayBuffer[OperationConstructContext]]],
                opValueNums: Option[Map[(Int, Int), (Int, Int)]] = None):
-    R[TechProcess, AppError] = ???
+    R[TechProcess, AppError] = {
+
+  }
+
+  private def createStartOperation(startOpConstructContext: OperationConstructContext): R[ORID, GraphError] = {
+
+  }
 
   def create(startOpConstructContext: OperationConstructContext, opNames: Option[ArrayBuffer[Map[Int, ArrayBuffer[Map[Int, String]]]]],
              opConstructContexts: Option[ArrayBuffer[Map[Int, ArrayBuffer[Map[Int, OperationConstructContext]]]]]):

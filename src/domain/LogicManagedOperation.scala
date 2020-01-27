@@ -3,10 +3,8 @@ import com.orientechnologies.orient.core.id.ORID
 
 import scala.collection.mutable.ArrayBuffer
 
-class LogicManagedOperation(override val name: String) extends Operation(name) {
+class LogicManagedOperation(override val name: String, val logicalOperations: ArrayBuffer[LogicalOperation],
+                            val execOperation: ChangingOperation)
+    extends Operation(name) {
   var id: ORID = _
-
-  var logicalOperations: Option[ArrayBuffer[LogicalOperation]] = _
-
-  var execOperation: Operation = _
 }

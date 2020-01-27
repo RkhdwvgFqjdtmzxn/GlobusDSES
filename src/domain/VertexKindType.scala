@@ -4,7 +4,7 @@ import scala.collection.mutable.ArrayBuffer
 
 object VertexKindType extends Enumeration {
   type VertexKindType = Value
-  val term, termKind, subTermKind = Value
+  val termKind, subTermKind = Value
 
   var vertexOuterChangeOperations: Option[ArrayBuffer[VertexOuterChangeOperation]] = _
 

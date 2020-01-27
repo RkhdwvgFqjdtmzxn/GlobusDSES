@@ -1,5 +1,5 @@
 package globus.factories.constructContexts
 
-class OperationConstructContext(val name: String) {
+abstract class OperationConstructContext(val name: String) {
 
 }

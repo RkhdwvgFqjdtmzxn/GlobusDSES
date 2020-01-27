@@ -1,9 +1,7 @@
 package globus.domain
+import com.orientechnologies.orient.core.id.ORID
 
 class CycleOperation(override val name: String, val operation: Operation)
   extends Operation(name)  {
-
-  var iterationsCount: Int = _
-
-  var logicalOperation: LogicalOperation = _
+  var id: ORID = _
 }
