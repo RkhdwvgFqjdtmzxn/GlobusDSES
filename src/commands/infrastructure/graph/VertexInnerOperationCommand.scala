@@ -10,18 +10,14 @@ import globus.infrastructure.langApi.rop._
 import globus.queries.infrastructure.graph.{NumberOperationTypeIdQuery, TermIdByNmeQuery, VertexOperationTypeIdQuery}
 
 class VertexInnerOperationCommand extends GraphTypeCommand[VertexInnerChangeOperation] {
-  private var numberType: NumberOperationType = _
-
-  def this(numberType: NumberOperationType){
-    this()
-    this.numberType = numberType
-  }
+  var numberType: NumberOperationType = _
 
   val termIdByNmeQuery = new TermIdByNmeQuery
 
   val vertexOperationTypeIdQuery = new VertexOperationTypeIdQuery
 
   def addVertex(operation: VertexInnerChangeOperation): R[ORID, GraphError] = {
+    graph begin
     try {
       val operationVertex: OrientVertex = graph addVertex(
         "class: Operation",
@@ -29,8 +25,10 @@ class VertexInnerOperationCommand extends GraphTypeCommand[VertexInnerChangeOper
       )
       val termVertexId = termIdByNmeQuery get operation.vertexTerm.name match {
         case Succ(data) => data
-        case Fail(msg) => return fail(new GraphError("Related term for operation not found in KB"))
+        case Fail(_) => return fail(new GraphError("Related term for operation not found in KB"))
       }
+      if (termVertexId == null)
+        return fail(new GraphError("There is trying of operation adding to KB, but related term (" + operation.vertexTerm.name + ") isn't exists in KB"))
       val termVertex = graph getVertex termVertexId
       operationVertex addEdge("RelateWith_" + operation.vertexPropName, termVertex)
       if (numberType != null) {
@@ -41,10 +39,12 @@ class VertexInnerOperationCommand extends GraphTypeCommand[VertexInnerChangeOper
       }
       val vertexOperationTypeId = vertexOperationTypeIdQuery get VertexOperationType.inner
       val vertexOperationTypeVertex = graph getVertex vertexOperationTypeId
-      vertexOperationTypeVertex addEdge ("HasOperation", operationVertex)
+      vertexOperationTypeVertex addEdge ("HasVertexOperation", operationVertex)
+      graph commit;
       succeed(operationVertex getIdentity)
     } catch {
-      case e: Exception => fail(new GraphError("Inner graph error during adding new operation."))
+      graph rollback;
+      case e: Exception => fail(new GraphError("Inner graph error during adding new vertex inner operation."))
     }
   }
 

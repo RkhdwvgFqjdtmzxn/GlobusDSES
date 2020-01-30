@@ -13,7 +13,8 @@ class TermIdByNmeQuery extends GraphContextQueryable[String, ORID]  {
     var id: ORID = null
     val terms = resultSet.forEach(v => {
       val item = v.asInstanceOf[OrientVertex]
-      id = item.getIdentity
+      if (item != null)
+        id = item.getIdentity
     })
     id
   }

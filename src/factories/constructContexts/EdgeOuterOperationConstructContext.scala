@@ -1,10 +1,10 @@
 package globus.factories.constructContexts
 
-import globus.domain.EdgeOperationType.EdgeOperationType
+import globus.domain.EdgeOuterChangeOperationType.EdgeOuterChangeOperationType
 import globus.domain.Term
 
 class EdgeOuterOperationConstructContext (override val name: String, val fromTerm: Term, val toTerm: Term,
-                                          val edgeOuterOperationType: EdgeOperationType)
+                                          val edgeOuterOperationType: EdgeOuterChangeOperationType)
    extends ChangingOperationConstructContext(name){
 
 }
