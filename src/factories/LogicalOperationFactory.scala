@@ -1,4 +1,4 @@
-package globus.factories
+/*package globus.factories
 
 import globus.domain.{LogicalOperation, Term}
 import globus.infrastructure.langApi.rop._
@@ -13,4 +13,4 @@ class LogicalOperationFactory(val name: String, var relatedTerms: Option[ArrayBu
       case e: Exception => fail(new FactoryError("Error until creating logicalOperation."))
     }
   }
-}
+}*/

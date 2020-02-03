@@ -1,4 +1,4 @@
-package globus.queries.infrastructure.graph
+/*package globus.queries.infrastructure.graph
 
 import com.tinkerpop.blueprints.impls.orient.{OrientDynaElementIterable, OrientVertex}
 import globus.domain.Operation
@@ -17,4 +17,4 @@ class OperationByIdQuery extends GraphContextQueryable[String, Operation] {
   }
 
   protected def getFailMessage(): String = ???
-}
+}*/

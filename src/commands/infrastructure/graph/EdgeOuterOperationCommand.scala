@@ -8,6 +8,7 @@ import globus.domain.EdgeOuterChangeOperationType.EdgeOuterChangeOperationType
 import globus.infrastructure.graph.GraphError
 import globus.infrastructure.langApi.rop._
 import globus.queries.infrastructure.graph.{EdgeOperationTypeIdQuery, EdgeOuterChangeOperationTypeIdQuery, TermIdByNmeQuery}
+import scala.language.postfixOps
 
 class EdgeOuterOperationCommand (val operationType: EdgeOuterChangeOperationType) extends GraphTypeCommand[EdgeOuterChangeOperation]{
   val termIdByNmeQuery = new TermIdByNmeQuery

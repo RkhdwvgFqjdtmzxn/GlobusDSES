@@ -1,4 +1,4 @@
-package globus.commands.infrastructure.graph
+/*package globus.commands.infrastructure.graph
 
 import com.orientechnologies.orient.core.id.ORID
 import com.tinkerpop.blueprints.impls.orient.OrientVertex
@@ -38,4 +38,4 @@ class LogicalOperationCommand extends GraphTypeCommand[LogicalOperation]{
   }
 
   def changeVertex(context: ChangeVertexContext): R[String, GraphError] = ???
-}
+}*/

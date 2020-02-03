@@ -12,7 +12,7 @@ trait TechProcessCreatable {
              opValueNums: Option[Map[(Int, Int), (Int, Int)]] = None)
     : R[TechProcess, AppError]
 
-  def create(name: String, startOpName: String, opConstructContexts: Option[ArrayBuffer[ArrayBuffer[OperationConstructContext]]])
+  /*def create(name: String, startOpName: String, opConstructContexts: Option[ArrayBuffer[ArrayBuffer[OperationConstructContext]]])
     : R[TechProcess, AppError]
 
   def create(name: String, startOpName: String, opNames: Option[ArrayBuffer[Map[Int, ArrayBuffer[Map[Int, String]]]]],
@@ -29,5 +29,5 @@ trait TechProcessCreatable {
 
   def create(name: String, startOpConstructContext: OperationConstructContext, opNames: Option[ArrayBuffer[Map[Int, ArrayBuffer[Map[Int, String]]]]],
              opConstructContexts: Option[ArrayBuffer[Map[Int, ArrayBuffer[Map[Int, OperationConstructContext]]]]])
-    : R[TechProcess, AppError]
+    : R[TechProcess, AppError]*/
 }

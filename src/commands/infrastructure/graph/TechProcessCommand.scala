@@ -6,6 +6,7 @@ import globus.commands.infrastructure.graph.internal.ChangeVertexContext
 import globus.domain.TechProcess
 import globus.infrastructure.graph.GraphError
 import globus.infrastructure.langApi.rop._
+import scala.language.postfixOps
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -13,7 +14,7 @@ class TechProcessCommand (val termId: ORID, val applyingTermId: ORID, val startO
                           opValueNums: Option[Map[(Int, Int), (Int, Int)]] = None)
     extends GraphTypeCommand[TechProcess] {
   def addVertex(techProcess: TechProcess): R[ORID, GraphError] = {
-    graph begin
+    graph begin;
     try {
       val techProcessVertex: OrientVertex = graph addVertex(
         "class:TechProcess",
@@ -31,7 +32,8 @@ class TechProcessCommand (val termId: ORID, val applyingTermId: ORID, val startO
           is1Elem = true
         for ((opId, j) <- opIdsArr.zipWithIndex) {
           val opVertex = graph getVertex opId
-          techProcessVertex addEdge("Op_" + (i+1) + is1Elem match{case false => "_" + j; case true => ""}, opVertex)
+          //uncomment !!!
+          //techProcessVertex addEdge("Op_" + (i+1) + is1Elem match{case false => "_" + j; case true => ""}, opVertex)
           if (opValueNums.isDefined) {
             if (opValueNums.get.keySet.contains(i+1, j)) {
               val lastResultNums = opValueNums.get.filter(_._1 == (i+1, j))(i+1, j)

@@ -25,7 +25,7 @@ class VertexOuterOperationWorker(val graph: OrientGraph, val operationType: Vert
         case Succ(data) => data
         case Fail(error) => return fail(error)
       }
-      if (termId.isEmpty)
+      if (termId == null)
         return fail(new GraphError("There is trying of operation adding to KB, but related term (" + operation.vertexTerm.name + ") isn't exists in KB"))
       val termVertex = graph getVertex termId
       operationVertex addEdge(operationType.toString + "_" + operation.vertexTerm.name, termVertex)

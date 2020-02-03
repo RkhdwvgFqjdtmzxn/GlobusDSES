@@ -1,4 +1,4 @@
-package globus.commands.infrastructure.graph
+/*package globus.commands.infrastructure.graph
 
 import com.orientechnologies.orient.core.id.ORID
 import com.tinkerpop.blueprints.impls.orient.OrientVertex
@@ -7,8 +7,11 @@ import globus.domain.{EdgeInnerChangeOperation, EdgeOperationType}
 import globus.infrastructure.graph.GraphError
 import globus.infrastructure.langApi.rop._
 import globus.queries.infrastructure.graph.{EdgeOperationTypeIdQuery, TermIdByNmeQuery}
+import scala.language.postfixOps
 
-class EdgeInnerOperationCommand extends GraphTypeCommand[EdgeInnerChangeOperation] {
+class EdgeInnerOperationCommand
+  //extends GraphTypeCommand[EdgeInnerChangeOperation]
+{
   val termIdByNmeQuery = new TermIdByNmeQuery
 
   val edgeOperationTypeIdQuery = new EdgeOperationTypeIdQuery
@@ -45,4 +48,4 @@ class EdgeInnerOperationCommand extends GraphTypeCommand[EdgeInnerChangeOperatio
   }
 
   def changeVertex(context: ChangeVertexContext): R[String, GraphError] = ???
-}
+}*/

@@ -8,6 +8,7 @@ import globus.domain.{VertexInnerChangeOperation, VertexOperationType}
 import globus.infrastructure.graph.GraphError
 import globus.infrastructure.langApi.rop._
 import globus.queries.infrastructure.graph.{NumberOperationTypeIdQuery, TermIdByNmeQuery, VertexOperationTypeIdQuery}
+import scala.language.postfixOps
 
 class VertexInnerOperationCommand extends GraphTypeCommand[VertexInnerChangeOperation] {
   var numberType: NumberOperationType = _
@@ -17,7 +18,7 @@ class VertexInnerOperationCommand extends GraphTypeCommand[VertexInnerChangeOper
   val vertexOperationTypeIdQuery = new VertexOperationTypeIdQuery
 
   def addVertex(operation: VertexInnerChangeOperation): R[ORID, GraphError] = {
-    graph begin
+    graph begin;
     try {
       val operationVertex: OrientVertex = graph addVertex(
         "class: Operation",
@@ -43,8 +44,10 @@ class VertexInnerOperationCommand extends GraphTypeCommand[VertexInnerChangeOper
       graph commit;
       succeed(operationVertex getIdentity)
     } catch {
-      graph rollback;
-      case e: Exception => fail(new GraphError("Inner graph error during adding new vertex inner operation."))
+      case e: Exception => {
+        graph rollback;
+        fail(new GraphError("Inner graph error during adding new vertex inner operation."))
+      }
     }
   }
 

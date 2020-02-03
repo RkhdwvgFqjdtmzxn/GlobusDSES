@@ -31,9 +31,9 @@ class OperationCreator extends OperationCreatable {
         val command = new EdgeOuterOperationCommand(edgeOuter.edgeOuterOperationType)
         command addVertex operation
       }
-      case logicManaged: LogicManagedOperationConstructContext => {
+      /*case logicManaged: LogicManagedOperationConstructContext => {
         val
-      }
+      }*/
     }
   }
 }

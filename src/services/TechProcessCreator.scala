@@ -98,7 +98,7 @@ class TechProcessCreator extends TechProcessCreatable {
     id
   }
 
-  def create(name: String, startOpName: String, opConstructContexts: Option[ArrayBuffer[ArrayBuffer[OperationConstructContext]]]):
+  /*def create(name: String, startOpName: String, opConstructContexts: Option[ArrayBuffer[ArrayBuffer[OperationConstructContext]]]):
     R[TechProcess, AppError] = ???
 
   def create(name: String, startOpName: String, opNames: Option[ArrayBuffer[Map[Int, ArrayBuffer[Map[Int, String]]]]],
@@ -107,20 +107,20 @@ class TechProcessCreator extends TechProcessCreatable {
 
   def create(name: String,
              startOpConstructContext: OperationConstructContext, opNames: Option[ArrayBuffer[ArrayBuffer[String]]]):
-    R[TechProcess, AppError] = ???
+    R[TechProcess, AppError] = ???*/
 
-  def create(name: String, term: Term, applyingTerm: Term, startOpConstructContext: OperationConstructContext,
+  def create2(name: String, term: Term, applyingTerm: Term, startOpConstructContext: OperationConstructContext,
              opConstructContexts: Option[ArrayBuffer[ArrayBuffer[OperationConstructContext]]],
                opValueNums: Option[Map[(Int, Int), (Int, Int)]] = None):
     R[TechProcess, AppError] = {
-
+    succeed(new TechProcess(""))
   }
 
   private def createStartOperation(startOpConstructContext: OperationConstructContext): R[ORID, GraphError] = {
-
+    succeed(null)
   }
 
-  def create(startOpConstructContext: OperationConstructContext, opNames: Option[ArrayBuffer[Map[Int, ArrayBuffer[Map[Int, String]]]]],
+  /*def create(startOpConstructContext: OperationConstructContext, opNames: Option[ArrayBuffer[Map[Int, ArrayBuffer[Map[Int, String]]]]],
              opConstructContexts: Option[ArrayBuffer[Map[Int, ArrayBuffer[Map[Int, OperationConstructContext]]]]]):
-    R[TechProcess, AppError] = ???
+    R[TechProcess, AppError] = ???*/
 }

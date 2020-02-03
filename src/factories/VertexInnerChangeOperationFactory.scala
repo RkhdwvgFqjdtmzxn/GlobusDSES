@@ -1,4 +1,4 @@
-package globus.factories
+/*package globus.factories
 
 import globus.domain.{Term, VertexInnerChangeOperation}
 import globus.infrastructure.langApi.rop.{R, fail, succeed}
@@ -11,4 +11,4 @@ class VertexInnerChangeOperationFactory (val name: String, val vertexTerm: Term)
       case e: Exception => fail(new FactoryError("Error until creating vertexInnerChangeOperation."))
     }
   }
-}
+}*/

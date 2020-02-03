@@ -13,7 +13,7 @@ class TermByIdQuery extends GraphContextQueryable[String, Term] {
     resultSet.forEach(v => {
       val item = v.asInstanceOf[OrientVertex]
       val typeItem = item.getProperties.get("termType").asInstanceOf[OVertexDocument]
-      val typeValue = typeItem.getProperty("value")
+      val typeValue: String = typeItem.getProperty("value")
       val termType = typeValue match {
         case "obj" => TermType.obj
         case "event" => TermType.event
